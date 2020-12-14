@@ -3,6 +3,7 @@
     <v-col cols="10">
       <div class="ma-4">
         <v-data-table
+          dense
           :items="events"
           :headers="headers"
           :items-per-page="5"
@@ -43,31 +44,31 @@
                   <v-card-text>
                     <v-container>
                       <v-row>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col cols="12" class="my-n4">
                           <v-text-field
                             v-model="editedItem.pessoa"
                             label="Pessoa"
                           ></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col cols="12" class="my-n4">
                           <v-text-field
                             v-model="editedItem.destino"
                             label="Destino"
                           ></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col cols="6" class="my-n4">
                           <v-text-field
                             v-model="editedItem.entrance"
                             label="Entrada"
                           ></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col cols="6" class="my-n4">
                           <v-text-field
                             v-model="editedItem.leave"
                             label="Saida"
                           ></v-text-field>
                         </v-col>
-                        <v-col cols="12" sm="6" md="4">
+                        <v-col cols="12" class="my-n4">
                           <v-text-field
                             v-model="editedItem.veiculo"
                             label="Veiculo"
@@ -88,13 +89,30 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
-              <v-dialog  v-model="dialogDelete" width="350">
-
-                <v-alert type="error">
-                  <span>Voce quer mesmo deletar este item?</span>
-                  <v-btn text   @click="closeDelete">Cancelar</v-btn>
-                  <v-btn text   @click="deleteItem()">OK</v-btn>
-                </v-alert>
+              <v-dialog v-model="dialogDelete" width="350">
+                <v-card color="error" class="error--text lighten-3">
+                  <v-card-title class="headLine"
+                    >Quer mesmo deletar?</v-card-title
+                  >
+                  <v-card-text class="error--text darken-2"
+                    >Tenha certeza dos seus atos!</v-card-text
+                  >
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      text
+                      class="error--text darken-1"
+                      @click="closeDelete"
+                      >Cancelar</v-btn
+                    >
+                    <v-btn
+                      text
+                      class="error--text darken-1"
+                      @click="deleteItem()"
+                      >OK</v-btn
+                    >
+                  </v-card-actions>
+                </v-card>
               </v-dialog>
             </v-toolbar>
           </template>
@@ -245,20 +263,27 @@ export default {
 </script>
 
 <style>
-::-webkit-scrollbar {
+*::-webkit-scrollbar {
   overflow-x: hidden;
   width: 12px;
 }
 
-::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   overflow-x: hidden;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   overflow-x: hidden;
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: inset 0 0 6px rgba(146, 78, 241, 0.5);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+.theme--light.v-data-table tbody tr:nth-of-type(even) {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+.theme--dark.v-data-table tbody tr:nth-of-type(even) {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 </style>
