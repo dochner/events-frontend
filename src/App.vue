@@ -1,28 +1,33 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <Header />
+
+  <v-row>
+    <v-col>
+      <EventosTable />
+    </v-col>
+  </v-row>
+
+    <Footer />
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import EventosTable from './components/Eventos/EventosTable'
+import Header from './components/Header/Header'
+import Footer from './components/Footer/Footer'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  components: {
+    EventosTable,
+    Header,
+    Footer
+  },
+
+  data: () => ({
+    //
+  }),
+};
+</script>
