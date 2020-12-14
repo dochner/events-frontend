@@ -1,22 +1,5 @@
 <template>
   <v-row class="justify-center">
-    <v-col cols="12">
-      <div class="ma-4">
-        <v-card-title>
-          <v-col><span></span></v-col>
-          <v-spacer></v-spacer>
-          <v-col cols="4"
-            ><v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Search"
-              single-line
-              hide-details
-            ></v-text-field
-          ></v-col>
-        </v-card-title>
-      </div>
-    </v-col>
     <v-col cols="10">
       <div class="ma-4">
         <v-data-table
@@ -42,6 +25,15 @@
                   >
                     Novo
                   </v-btn>
+                  <v-card-title>
+                    <v-text-field
+                      v-model="search"
+                      append-icon="mdi-magnify"
+                      label="Search"
+                      single-line
+                      hide-details
+                    ></v-text-field>
+                  </v-card-title>
                 </template>
                 <v-card>
                   <v-card-title>
@@ -96,22 +88,13 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
-              <v-dialog v-model="dialogDelete" max-width="500px">
-                <v-card>
-                  <v-card-title class="headline"
-                    >Are you sure you want to delete this item?</v-card-title
-                  >
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="closeDelete"
-                      >Cancel</v-btn
-                    >
-                    <v-btn color="blue darken-1" text @click="deleteItem()"
-                      >OK</v-btn
-                    >
-                    <v-spacer></v-spacer>
-                  </v-card-actions>
-                </v-card>
+              <v-dialog  v-model="dialogDelete" width="350">
+
+                <v-alert type="error">
+                  <span>Voce quer mesmo deletar este item?</span>
+                  <v-btn text   @click="closeDelete">Cancelar</v-btn>
+                  <v-btn text   @click="deleteItem()">OK</v-btn>
+                </v-alert>
               </v-dialog>
             </v-toolbar>
           </template>
@@ -155,6 +138,7 @@ export default {
       displayModal: false,
       editedIndex: -1,
       editedItem: {
+        id: 0,
         pessoa: "",
         destino: "",
         entrance: "",
@@ -219,6 +203,7 @@ export default {
             entrance: "",
             telefono: "",
           };
+          this.close();
           this.getAll();
         }
       });
@@ -228,14 +213,14 @@ export default {
     },
     editItem(item) {
       this.editedIndex = this.events.indexOf(item);
-      this.editedItem = Object.assign({}, this.item);
+      this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     deleteItem() {
       console.log("deleteItem", this.itemToDelete);
       this.eventService.delete(this.itemToDelete.id);
-      this.getAll();
       this.closeDelete();
+      this.getAll();
     },
     showDeleteDialog(item) {
       this.itemToDelete = item;
@@ -261,20 +246,17 @@ export default {
 
 <style>
 ::-webkit-scrollbar {
-
   overflow-x: hidden;
   width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-
   overflow-x: hidden;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-
   overflow-x: hidden;
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
